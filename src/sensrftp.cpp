@@ -143,6 +143,7 @@ int main(int argc, char *argv[]) {
 		cvFree(&img);
 		ftp_image(fn,serv,user,pass);
 		unlink(fn);
+		sleep(1);
     }
 
 }
