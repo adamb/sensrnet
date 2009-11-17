@@ -131,10 +131,18 @@ int main(int argc, char *argv[]) {
 	char *serv = argv[1];
 	char *user = argv[2];
 	char *pass = argv[3];
+	char fn[80];
 	
 	capture = cvCaptureFromCAM( 0 );
-	img = get_image(capture);
-	cvSaveImage("test.jpg",img);
-	ftp_image("test.jpg",serv,user,pass);
+	
+	int cnt = 0;
+	while(true){
+		img = get_image(capture);
+		snprintf(fn, 80, "test%d.jpg",cnt++);
+		cvSaveImage(fn,img);
+		cvFree(&img);
+		ftp_image(fn,serv,user,pass);
+		unlink(fn);
+    }
 
 }
